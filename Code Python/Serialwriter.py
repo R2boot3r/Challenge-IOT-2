@@ -11,7 +11,7 @@ import csv
 
 
 #il va falloir mettre un truc qui prend directement le bon periphérique
-ser = serial.Serial('/dev/ttyACM0')
+ser = serial.Serial('/dev/ttyACM2')
 ser.flushInput()
 
 #contient l'ensemble des ids de nos nodes lora
@@ -25,12 +25,7 @@ while True:
         ser_bytes = ser.readline()
         decoded_bytes = ser_bytes[0:len(ser_bytes)-2].decode("utf-8")
         
-        
-        
-        
-        
-        
-        
+
         
         
         with open("test_data.csv","a") as f:
