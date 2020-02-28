@@ -37,3 +37,7 @@ while True:
                 string = now.strftime("%Y-%m-%d %H:%M:%S")+";"+decoded_bytes
                 print(string)
                 writer.writerow([string])
+
+
+####### Il faut mettre un try catch poru les erreurs de decodages utf si on a des valeurs erroné
+                
