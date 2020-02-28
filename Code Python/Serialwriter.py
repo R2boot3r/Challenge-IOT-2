@@ -11,7 +11,7 @@ import csv
 
 
 #il va falloir mettre un truc qui prend directement le bon periphérique
-ser = serial.Serial('COM4') #/dev/ttyACM2
+ser = serial.Serial('/dev/ttyACM0') #/dev/ttyACM2
 ser.flushInput()
 
 #contient l'ensemble des ids de nos nodes lora
@@ -24,7 +24,9 @@ while True:
 
         ser_bytes = ser.readline()
         decoded_bytes = ser_bytes[0:len(ser_bytes)-2].decode("utf-8")
-        print(decoded_bytes)
+        print("---------------------------------------")
+        print("Données brutes reçue : ",decoded_bytes)
+        print("---------------------------------------")
         
         
         data = decoded_bytes.split(";")
@@ -32,11 +34,23 @@ while True:
         if data[0] in List_node_lora:
             #print("bonjour")
             with open("test_data.csv","a") as f:
+
+                
                 writer = csv.writer(f,delimiter=";")
                 now = datetime.datetime.now()
-                string = now.strftime("%Y-%m-%d %H:%M:%S")+";"+decoded_bytes
-                print(string)
+                now1 = now.strftime("%Y-%m-%d %H:%M:%S")
+                string = now1+";"+decoded_bytes
+                print("===========================================")
+                print("Je suis idlora:", data[0]," et voici mes données")
+                
+                print("Date :",now1)
+                print("Température :",data[1])
+                print("Humidité :",data[2])
+                print("Présence d'abeilles :",data[3])
+                print("===========================================")
                 writer.writerow([string])
+
+
 
 
 ####### Il faut mettre un try catch poru les erreurs de decodages utf si on a des valeurs erroné
